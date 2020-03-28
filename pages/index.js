@@ -1,5 +1,6 @@
 import Layout from '../components/MyLayout';
 import Link from 'next/link';
+export const config = { amp: true };
 
 function getPosts() {
   return [
