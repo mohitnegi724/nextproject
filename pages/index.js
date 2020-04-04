@@ -1,75 +1,18 @@
-import Layout from '../components/MyLayout';
-import Link from 'next/link';
-export const config = { amp: true };
-
-function getPosts() {
-  return [
-    { id: 'hello-nextjs', title: 'Hello Next.js' },
-    { id: 'learn-nextjs', title: 'Learn Next.js is awesome' },
-    { id: 'deploy-nextjs', title: 'Deploy apps with ZEIT' }
-  ];
-}
-
-const PostLink = ({ post }) => (
-  <div>
-  <li>
-    <Link href="/p/[id]" as={`/p/${post.id}`}>
-      <a>{post.title}</a>
-    </Link>
-  </li>
-  <style jsx>
-    {`
-    li {
-      list-style: none;
-      margin: 5px 0;
-    }
-
-    a {
-      text-decoration: none;
-      color: blue;
-    }
-
-    a:hover {
-      opacity: 0.6;
-    }
-    `}
-  </style>
-  </div>
-);
+import { Fragment } from 'react';
 
 export default function Blog() {
   return (
-    <Layout>
-      <h1>My Blog</h1>
-      <ul>
-        {getPosts().map(post => (
-          <PostLink key={post.id} post={post} />
-        ))}
-      </ul>
+    <Fragment>
+      <div className='container'>
+        <a href="/api/auth/google">google</a>
+      </div>
       <style jsx>{`
-        h1,
-        a {
-          font-family: 'Arial';
-        }
-
-        ul {
-          padding: 0;
-        }
-
-        li {
-          list-style: none;
-          margin: 5px 0;
-        }
-
-        a {
-          text-decoration: none;
-          color: blue;
-        }
-
-        a:hover {
-          opacity: 0.6;
-        }
+      .container {
+        padding: 10px 5%;
+        width: 90%;
+        height: 100%;
+      }
       `}</style>
-    </Layout>
+    </Fragment>
   );
 }
