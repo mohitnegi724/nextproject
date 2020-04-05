@@ -39,6 +39,7 @@ const PostLink = ({ post }) => (
 export default function Blog() {
   return (
     <Layout>
+      
       <a href="/auth/google">Sign In with Google</a>
       <h1>My Blog</h1>
       <ul>

@@ -5,6 +5,7 @@ export default function Blog() {
     <Fragment>
       <div className='container'>
         <a href="/api/auth/google">google</a>
+        <a href="/api/logout">Logout</a>
       </div>
       <style jsx>{`
       .container {
