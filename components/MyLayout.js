@@ -1,16 +1,34 @@
-import Header from './Header';
+import React, {useContext, Fragment} from 'react';
+import {ThemeContext} from '../context/theme';
+import Navbar from '../components/Navbar'
 
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
+export default function Layout(props){
+  const context = useContext(ThemeContext);
+  return (
+    <Fragment>
+      <div className="layoutContainer" style={{
+          background: context.theme === 'light'? 'white': '#282c34',
+          color: context.theme === 'light'? '#282c34': 'white'
+        }}>
+        <Navbar />
+        <div className="component">
+          {props.children}
+        </div>
+      </div>
+      <style jsx>{`
+        .layoutContainer {
+          width: 100%;
+          transition: all 0.5s ease-in-out;
+          min-Height: 100vh;
+          height: 100%;
+          padding: 0px 20px;
+          box-sizing: border-box;
+        }
+        .component {
+          padding-top: 40px;
+        }
+      `}
+      </style>
+    </Fragment>
+  )
 };
-
-const Layout = props => (
-  <div style={layoutStyle}>
-    <Header />
-    {props.children}
-  </div>
-);
-
-export default Layout;

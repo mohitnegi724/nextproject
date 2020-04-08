@@ -35,17 +35,19 @@ app.prepare().then(() => {
     });
 
     server.get('/', (req, res, next)=>{
-        //If user is logged in
-        if(req.user){
-            res.redirect('/Homepage')
-        }
         //User is not Logged in
-        else{
+        if(!req.user){
             handle(req,res)
+        }
+        //If user is logged in
+        else{
+            res.redirect('/homepage')
         }
     })
 
-    server.get('/Homepage', authCheck, (req, res, next)=>{
+    server.get('/homepage', (req, res, next)=>{
+        console.log('Homepage request')
+        res.user = req.user
         handle(req, res)
     })
     server.use((req, res) => {

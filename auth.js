@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/user-model');
+const authCheck  = require('./utils/authCheck');
 
 passport.use(
     new GoogleStrategy({
@@ -38,11 +39,16 @@ passport.use(
 router.get('/auth/google', passport.authenticate('google', {scope:['profile', 'email']}));
 
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
+    console.log('Authentication request')
     res.redirect('/');
 });
 
-router.get('/logout', (req, res)=>{
-    console.log('logoout req')
+router.get('/profile', (req, res)=>{
+    console.log('Profile request')
+    res.send(req.user)
+})
+
+router.post('/logout', (req, res)=>{
     req.logout()
     res.redirect('/')
 
