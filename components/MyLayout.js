@@ -16,9 +16,11 @@ export default function Layout(props){
         </div>
       </div>
       <style jsx>{`
+        * {
+          transition: all 0.5s ease-in-out;
+        }
         .layoutContainer {
           width: 100%;
-          transition: all 0.5s ease-in-out;
           min-Height: 100vh;
           height: 100%;
           padding: 0px 20px;

@@ -21,22 +21,28 @@ const Navbar = () => {
       {
       `
         .navbarContainer {
-          top:0;
-          width: 100%;
-          position: fixed;
-          height: 40px;
+          // position: fixed;
           display: flex;
           align-items: center;
-          jusitfy-content: center;
-          right: 5px;
+          justify-content: center;
+          box-sizing: border-box;
+          top:0;
+          width: 100%;
+          height: 40px;
+          padding: 0px 5px;
         }
         .themeButtonRight {
           margin-left: auto;
-          padding-right: 20px;
+          // padding-right: 20px;
           border-radius: 50%;
           background: transparent;
           transition: all 0.5s ease-in-out
-        }       
+        }
+        a {
+          transition: all 0.5s ease-in-out;
+          text-decoration: none;
+          color: inherit
+        }
       `
       }
     </style>

@@ -44,14 +44,12 @@ router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) 
 });
 
 router.get('/profile', (req, res)=>{
-    console.log('Profile request')
     res.send(req.user)
 })
 
 router.post('/logout', (req, res)=>{
-    req.logout()
-    res.redirect('/')
-
+    req.logout();
+    res.send({status: 200})
 })
 
 module.exports = router;
