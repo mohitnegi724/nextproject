@@ -35,10 +35,9 @@ export default function Home(props) {
     </Fragment>
   );
 }
-Home.getInitialProps= async ctx =>{
+Home.getInitialProps= async ({req}) =>{
   try {
     let user = await fetch('http://localhost:3000/api/profile')
-    console.log(user)
     if(user){
       let data = await user.json();
       return {
@@ -52,7 +51,6 @@ Home.getInitialProps= async ctx =>{
       }
     }
   }catch (error) {
-    console.log({error})
     return {login: false}
   }
 }
