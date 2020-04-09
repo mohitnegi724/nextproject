@@ -3,6 +3,7 @@ import {Login} from '../context/login'
 import fetch from 'isomorphic-unfetch'
 import LoginForm from '../components/Login'
 import LoggedIn from '../components/LoggedIn'
+import absoluteUrl from 'next-absolute-url'
 
 export default function Home(props) {
   const {login, user} = props;
@@ -39,9 +40,11 @@ export default function Home(props) {
     </Fragment>
   );
 }
-Home.getInitialProps= async () =>{
+Home.getInitialProps= async ({req}) =>{
+  const { protocol, host } = absoluteUrl(req);
+  const apiURL = `${protocol}//${host}/api/profile`
   try {
-    let user = await fetch('http://localhost:3000/api/profile')
+    let user = await fetch(apiURL)
     if(user){
       let data = await user.json();
       return {

@@ -1,8 +1,0 @@
-{
-  "env": {
-    "clientID": "@clientid",
-    "clientSecret": "@clientsecret",
-    "mongoURI": "@mongouri",
-    "cookieKey": "@cookiekey"
-  }
-}

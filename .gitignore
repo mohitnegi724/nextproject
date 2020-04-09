@@ -1,4 +1,4 @@
 node_modules
-key.js
+keys/dev.js
 .next
 .now

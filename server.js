@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const auth = require('./auth');
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
-const keys = require('./key')
+const keys = require('./keys')
 const authCheck = require('./utils/authCheck')
 const passport = require('passport')
 const cookieSession =  require('cookie-session')
