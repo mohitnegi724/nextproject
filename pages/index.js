@@ -39,7 +39,7 @@ export default function Home(props) {
     </Fragment>
   );
 }
-Home.getInitialProps= async ({req}) =>{
+Home.getInitialProps= async () =>{
   try {
     let user = await fetch('http://localhost:3000/api/profile')
     if(user){

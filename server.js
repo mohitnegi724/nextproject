@@ -45,8 +45,7 @@ app.prepare().then(() => {
         }
     })
 
-    server.get('/homepage', (req, res, next)=>{
-        console.log('Homepage request')
+    server.get('/homepage', authCheck, (req, res, next)=>{
         res.user = req.user
         handle(req, res)
     })

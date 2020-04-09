@@ -43,7 +43,7 @@ router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) 
     res.redirect('/');
 });
 
-router.get('/profile', authCheck, (req, res)=>{
+router.get('/profile', (req, res)=>{
     res.send(req.user)
 })
 

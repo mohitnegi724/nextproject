@@ -40,14 +40,14 @@ export default function Login() {
               margin: 40px 0;
             }
             .quotePart {
-              color: #e5e5e5;
+              color: #868686;
               line-height:1.5;
             }
             .quote {
               font-size: 30px;
             }
             .by {
-              color: #bdbdbe;
+              color: #949494;
             }
             `}
           </style>
