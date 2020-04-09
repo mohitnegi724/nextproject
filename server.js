@@ -10,8 +10,7 @@ const passport = require('passport')
 const cookieSession =  require('cookie-session')
 const handle = app.getRequestHandler()
 const PORT = process.env.PORT || 3000;
-app.prepare().then(() => {
-    
+app.prepare().then(() => {    
     const server  =express();
     server.use(cookieSession({
         maxAge: 24 * 60 * 60 * 1000,

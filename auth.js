@@ -3,14 +3,14 @@ const router = express.Router()
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/user-model');
-const authCheck  = require('./utils/authCheck');
+const keys  = require('./key');
 
 passport.use(
     new GoogleStrategy({
         // options for google strategy
         callbackURL: "/api/auth/google/redirect",
-        clientID: '931658461634-fdqt136chusiak4vftg4u2h578csr87k.apps.googleusercontent.com',
-        clientSecret: '8hKxFAC9KtP-uogpXkDy6NVe'
+        clientID: keys.clientID,
+        clientSecret: keys.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
         User.findOne({googleId: profile.id}).then((currentUser) => {
