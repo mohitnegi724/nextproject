@@ -1,8 +1,8 @@
 {
   "env": {
-    "clientID": "@clientID",
-    "clientSecret": "@clientSecret",
-    "mongoURI": "@mongoURI",
-    "cookieKey": "@cookieKey"
+    "clientID": "@clientid",
+    "clientSecret": "@clientsecret",
+    "mongoURI": "@mongouri",
+    "cookieKey": "@cookiekey"
   }
 }
