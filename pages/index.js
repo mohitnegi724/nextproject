@@ -6,7 +6,10 @@ import LoggedIn from '../components/LoggedIn'
 
 export default function Home(props) {
   const {login, user} = props;
+
   const context = useContext(Login);
+  const { login:contextLogin, user:contextUser} = context.loginContext || {};
+
   useEffect(()=>{
     if(login){
       context.setLogin({login, user})
@@ -17,10 +20,11 @@ export default function Home(props) {
       })
     }
   }, [])
+
   return (
     <Fragment>
       <div className='homepage-container'>
-          {login?<LoggedIn user={user}/>:<LoginForm/>}
+          {contextLogin?<LoggedIn user={user}/>:<LoginForm/>}
       </div>
       <style jsx>{`
       .homepage-container {

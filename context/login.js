@@ -6,12 +6,12 @@ export const Login = createContext({
 })
 
 export const LoginProvider =props=>{
-    const[login, setLogin] = useState({login: false})
+    const[loginState, setLoginState] = useState({login: false})
     return(
     <Login.Provider value={{
-        login,
+        loginContext: loginState,
         setLogin:val=>{
-            setLogin(val)
+            setLoginState(val)
         }}}>
         {props.children}
     </Login.Provider>

@@ -4,7 +4,9 @@ import Layout from '../components/MyLayout';
 export default function Blog() {
   return (
     <Layout>
-      <h1></h1>
+      <h1>
+        This is task manager project!
+      </h1>
       <style jsx>{`
         h1,
         a {
