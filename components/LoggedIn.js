@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link'
 
 export default function LoggedIn(props) {
+  console.log('User ',props)
   const {profilePicture, username, email} = props.user;
   const context = useContext(Login);
   return(

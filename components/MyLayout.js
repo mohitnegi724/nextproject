@@ -1,9 +1,25 @@
-import React, {useContext, Fragment} from 'react';
+import React, {useContext, Fragment, useEffect} from 'react';
 import {ThemeContext} from '../context/theme';
+import {Login} from '../context/login';
 import Navbar from '../components/Navbar'
+import axios from 'axios';
 
 export default function Layout(props){
-  const context = useContext(ThemeContext);
+  let context = useContext(ThemeContext);
+  let userLoginContext = useContext(Login);
+
+  useEffect(()=>{
+    const apiurl = `${window.location.origin}/api/profile`
+    axios.get(apiurl)
+    .then(user=>{
+      user = user.data
+      return userLoginContext.setLogin({loginContext: true, user})
+    })
+    .catch(err=>{
+      console.log(err)
+      userLoginContext.setLogin({loginContext: false, user: {}})
+    })
+  }, [])
   return (
     <Fragment>
       <div className="layoutContainer" style={{

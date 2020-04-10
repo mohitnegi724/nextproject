@@ -1,12 +1,11 @@
 import React from 'react';
+import NoTasks from '../components/NoTasks'
 import Layout from '../components/MyLayout';
 
 export default function Blog() {
   return (
     <Layout>
-      <h1>
-        This is task manager project!
-      </h1>
+      <NoTasks />
       <style jsx>{`
         h1,
         a {

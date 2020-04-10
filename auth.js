@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/user-model');
+const Task = require('./models/task-model');
 const authCheck = require('./utils/authCheck');
 const keys  = require('./keys');
 
@@ -57,6 +58,34 @@ router.get('/profile', (req, res)=>{
 router.post('/logout', (req, res)=>{
     req.logout();
     res.send({status: 200})
+})
+
+router.get('/tasks', authCheck, (req, res)=>{
+    Task.find({}).then(tasks=>res.send(tasks)).catch(err=>res.send(err))
+})
+
+router.post('/createTask', authCheck, async (req, res)=>{
+    req.body.author = req.user._id
+    console.log(req.body)
+    console.log('user', req.user._id)
+    let createdUser = await Task.create(req.body)
+    res.send(createdUser)
+})
+
+router.post('/updateTask', authCheck, async(req, res)=>{
+    Task.findByIdAndUpdate(id, {$set: req.body}, {new: true})
+    .then(task=>{
+        res.send(task)
+    })
+    .catch(err=> console.log(err))
+})
+
+router.post('/deleteTask', authCheck, async(req, res)=>{
+    Task.findByIdAndDelete(id)
+    .then(()=>{
+        res.redirect('/api/tasks')
+    })
+    .catch(err=> console.log(err))
 })
 
 module.exports = router;

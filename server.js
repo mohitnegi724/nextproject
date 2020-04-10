@@ -3,6 +3,7 @@ const next = require('next')
 const mongoose = require('mongoose')
 const auth = require('./auth');
 const dev = process.env.NODE_ENV !== 'production'
+const bodyParser = require('body-parser')
 const app = next({ dev })
 const keys = require('./keys')
 const authCheck = require('./utils/authCheck')
@@ -10,8 +11,10 @@ const passport = require('passport')
 const cookieSession =  require('cookie-session')
 const handle = app.getRequestHandler()
 const PORT = process.env.PORT || 3000;
-app.prepare().then(() => {    
+app.prepare().then(() => {   
     const server  =express();
+    server.use(bodyParser())
+    server.use(bodyParser.urlencoded({ extended: true }))
     server.use(cookieSession({
         maxAge: 24 * 60 * 60 * 1000,
         keys: [keys.cookieKey]

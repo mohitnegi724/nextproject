@@ -30,6 +30,7 @@ const Navbar = () => {
           width: 100%;
           height: 40px;
           padding: 0px 5px;
+          z-index: 5;
         }
         .themeButtonRight {
           margin-left: auto;
