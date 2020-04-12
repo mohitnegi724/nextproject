@@ -27,7 +27,6 @@ passport.use(
                     email: profile.emails[0].value,
                     profilePicture: profile.photos[0].value,
                 }).save().then((newUser) => {
-                    console.log('created new user: ', newUser);
                     done(null, newUser);
                 }).catch(err=>{
                     console.log(err)
@@ -47,11 +46,10 @@ router.get('/auth/google', (req, res, next)=>{
 }, passport.authenticate('google', {scope:['profile', 'email']}));
 
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
-    console.log('Authentication request')
     res.redirect('/');
 });
 
-router.get('/profile', (req, res)=>{
+router.get('/profile', authCheck, (req, res)=>{
     res.send(req.user)
 })
 
@@ -60,14 +58,12 @@ router.post('/logout', (req, res)=>{
     res.send({status: 200})
 })
 
-router.get('/tasks', authCheck, (req, res)=>{
+router.get('/tasks', (req, res)=>{
     Task.find({}).then(tasks=>res.send(tasks)).catch(err=>res.send(err))
 })
 
 router.post('/createTask', authCheck, async (req, res)=>{
     req.body.author = req.user._id
-    console.log(req.body)
-    console.log('user', req.user._id)
     let createdUser = await Task.create(req.body)
     res.send(createdUser)
 })

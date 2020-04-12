@@ -13,12 +13,12 @@ export default function Layout(props){
     axios.get(apiurl)
     .then(user=>{
       user = user.data
-      return userLoginContext.setLogin({loginContext: true, user})
+      userLoginContext.setLogin(true, user)
     })
     .catch(err=>{
-      console.log(err)
-      userLoginContext.setLogin({loginContext: false, user: {}})
+      userLoginContext.setLogin(false, {})
     })
+    return ()=>{}
   }, [])
   return (
     <Fragment>

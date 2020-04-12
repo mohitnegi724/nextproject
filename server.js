@@ -13,8 +13,8 @@ const handle = app.getRequestHandler()
 const PORT = process.env.PORT || 3000;
 app.prepare().then(() => {   
     const server  =express();
-    server.use(bodyParser())
     server.use(bodyParser.urlencoded({ extended: true }))
+    server.use(bodyParser.json());
     server.use(cookieSession({
         maxAge: 24 * 60 * 60 * 1000,
         keys: [keys.cookieKey]
@@ -22,8 +22,7 @@ app.prepare().then(() => {
 
     // connect to mongodb
     mongoose.connect(keys.mongoURI, () => {
-        console.log('connected to mongodb');
-    });
+    }, {useNewUrlParser: true});
     // initialize passport
     server.use(passport.initialize());
     server.use(passport.session());

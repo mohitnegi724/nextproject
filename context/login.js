@@ -2,20 +2,20 @@ import {createContext, useState} from 'react';
 
 
 export const Login = createContext({
-    loginContext: false,
+    loginState: false,
     user: {}
 })
 
 export const LoginProvider =props=>{
-    const[loginState, setLoginState] = useState({
-        loginContext: false,
-        user: {}
-    })
+    const[loginState, setLoginState] = useState(false)
+    const [user, setUser] = useState({})
     return(
     <Login.Provider value={{
-        loginContext: loginState,
-        setLogin:val=>{
-            setLoginState(val)
+        loginState,
+        user,
+        setLogin:(loginStatus, user)=>{
+            setLoginState(loginStatus)
+            setUser(user)
         }}}>
         {props.children}
     </Login.Provider>
