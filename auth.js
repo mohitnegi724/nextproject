@@ -53,13 +53,13 @@ router.get('/profile', authCheck, (req, res)=>{
     res.send(req.user)
 })
 
-router.post('/logout', (req, res)=>{
+router.post('/logout', authCheck, (req, res)=>{
     req.logout();
     res.send({status: 200})
 })
 
-router.get('/tasks', (req, res)=>{
-    Task.find({}).then(tasks=>res.send(tasks)).catch(err=>res.send(err))
+router.get('/tasks', authCheck, (req, res)=>{
+    Task.find({author: req.user.id}).then(tasks=>res.send(tasks)).catch(err=>res.send(err))
 })
 
 router.post('/createTask', authCheck, async (req, res)=>{

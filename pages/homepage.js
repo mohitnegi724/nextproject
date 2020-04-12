@@ -1,20 +1,23 @@
 import React, {useContext, useEffect} from 'react';
 import NoTasks from '../components/NoTasks'
 import Layout from '../components/MyLayout';
+import TasksComponent from '../components/Tasks'
 import {Tasks} from '../context/Tasks'
 import fetch from 'isomorphic-unfetch';
+import jsCookie from 'js-cookie';
 
 
 export default function Blog(props) {
-  let context = useContext(Tasks)
-  
+  const context = useContext(Tasks)
+  const {tasks} = context;
   useEffect(()=>{
+    console.log(props)
     context.setTasks(props.tasks)
   }, [])
 
   return (
     <Layout>
-        <NoTasks />
+        {tasks.length?<TasksComponent/>: <NoTasks />}
         <style jsx>{`
           h1,
           a {
@@ -45,13 +48,22 @@ export default function Blog(props) {
   );
 }
 
-Blog.getInitialProps= async ({req}) =>{
+Blog.getInitialProps= async (ctx) =>{
   try {
-    let res = await fetch('http://localhost:3000/api/tasks')
-    if(res){
+    let res = await fetch('http://localhost:3000/api/tasks', {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Cache': 'no-cache'
+      },
+      credentials: 'same-origin'
+    })
+
+    if(res.status !== 404){
       let tasks = await res.json();
       return {
-        tasks: tasks
+        tasks
       }
     }else {
       return{
