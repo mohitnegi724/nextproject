@@ -3,11 +3,10 @@ import NoTasks from '../components/NoTasks'
 import Layout from '../components/MyLayout';
 import TasksComponent from '../components/Tasks'
 import {Tasks} from '../context/Tasks'
+import nextCookie from 'next-cookies'
 import fetch from 'isomorphic-unfetch';
-import jsCookie from 'js-cookie';
 
-
-export default function Blog(props) {
+export default function Homepage(props) {
   const context = useContext(Tasks)
   const {tasks} = context;
   useEffect(()=>{
@@ -48,18 +47,14 @@ export default function Blog(props) {
   );
 }
 
-Blog.getInitialProps= async (ctx) =>{
-  try {
-    let res = await fetch('http://localhost:3000/api/tasks', {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Cache': 'no-cache'
-      },
-      credentials: 'same-origin'
+Homepage.getInitialProps= async (ctx) =>{
+  const { pathname, query, req, err } = ctx;
+  
+   try {
+    let res  = await fetch('http://localhost:3000/api/tasks', {
+      method: 'GET',
+      headers: ctx.req ? { cookie: ctx.req.headers.cookie } : undefined
     })
-
     if(res.status !== 404){
       let tasks = await res.json();
       return {

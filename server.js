@@ -8,13 +8,16 @@ const app = next({ dev })
 const keys = require('./keys')
 const authCheck = require('./utils/authCheck')
 const passport = require('passport')
+const cookieParser = require('cookie-parser')
 const cookieSession =  require('cookie-session')
 const handle = app.getRequestHandler()
 const PORT = process.env.PORT || 3000;
 app.prepare().then(() => {   
     const server  =express();
+    const User = require('./models/user-model')
     server.use(bodyParser.urlencoded({ extended: true }))
     server.use(bodyParser.json());
+    server.use(cookieParser())
     server.use(cookieSession({
         maxAge: 24 * 60 * 60 * 1000,
         keys: [keys.cookieKey]
@@ -28,11 +31,13 @@ app.prepare().then(() => {
     server.use(passport.session());
     server.use('/api', auth)
     passport.serializeUser(function(user, done) {
-        done(null, user);
+        done(null, user.id);
     });
-      
-    passport.deserializeUser(function(user, done) {
-    done(null, user);
+    
+    //Take the token and deserialize the User token and find out the user
+    passport.deserializeUser(function(id, done) {
+        User.findById(id)
+        .then(user=> done(null, user))
     });
 
     server.get('/', (req, res, next)=>{
@@ -50,6 +55,7 @@ app.prepare().then(() => {
         res.user = req.user
         handle(req, res)
     })
+    
     server.use((req, res) => {
         return handle(req, res)
     })

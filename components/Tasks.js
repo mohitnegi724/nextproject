@@ -1,35 +1,29 @@
 import React, { Fragment, useContext} from 'react';
 import {Tasks} from '../context/Tasks'
+import SingleTask from './SingleTask' 
 
 export default function TasksComponent(props){
   const context= useContext(Tasks)
   const {tasks} = context;
   const printTasks = () => {
-    return tasks.map(task=>(
-      <Fragment>
-        <h3>
-          {task.title}
-        </h3>
-        <p>
-          {task.content}
-        </p>
-        <div>
-          <strong>Pros</strong>
-          <br/>
-          <span>{task.pros}</span>
-        </div>
-        <div>
-          <strong>Cons</strong>
-          <br/>
-          <span>{task.cons}</span>
-        </div>
-      </Fragment>
+    return tasks.map((task, index)=>(
+      <SingleTask task={task} key={index}/>
     ))
   }
   return(
     <Fragment>
       Tasks
-      {printTasks()}
+      <div className="tasksContainer">
+        {printTasks()}
+      </div>
+      <style jsx>
+        {`
+        .tasksContainer {
+          display: flex;
+          flex-direction: row;
+        }
+        `}
+      </style>
     </Fragment>
   )
 }

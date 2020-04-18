@@ -49,7 +49,7 @@ router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) 
     res.redirect('/');
 });
 
-router.get('/profile', authCheck, (req, res)=>{
+router.get('/profile', authCheck,(req, res)=>{
     res.send(req.user)
 })
 
@@ -59,7 +59,7 @@ router.post('/logout', authCheck, (req, res)=>{
 })
 
 router.get('/tasks', authCheck, (req, res)=>{
-    Task.find({author: req.user.id}).then(tasks=>res.send(tasks)).catch(err=>res.send(err))
+    Task.find({author: req.user._id}).then(tasks=>res.json(tasks)).catch(err=>res.send(err))
 })
 
 router.post('/createTask', authCheck, async (req, res)=>{
